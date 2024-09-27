@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        #messages {
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid gray;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Chat Room</h1>
+    <div id="messages"></div>
+    <input type="text" id="messageInput" class="form-control" placeholder="Type your message here..." />
+    <button id="sendButton" class="btn btn-create">Send</button>
+</div>
+
+<script>
+    const messagesDiv = document.getElementById('messages');
+    const messageInput = document.getElementById('messageInput');
+    const sendButton = document.getElementById('sendButton');
+
+    // Функция для добавления сообщения в чат
+    function addMessage(message) {
+        const messageElement = document.createElement('div');
+        messageElement.textContent = message;
+        messagesDiv.appendChild(messageElement);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Прокручиваем вниз к последнему сообщению
+    }
+
+    // Обработка нажатия кнопки "Send"
+    sendButton.addEventListener('click', () => {
+        const message = messageInput.value.trim();
+        if (message) {
+            addMessage(message); // Добавляем сообщение в чат
+            messageInput.value = ''; // Очищаем поле ввода
+        }
+    });
+
+    // Обработка нажатия клавиши Enter
+    messageInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            sendButton.click(); // Имитация нажатия кнопки "Send"
+        }
+    });
+</script>
+
+</body>
+</html>

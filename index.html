@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Page Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        button {
+        body {
+            background-color: black;
+            color: white;
+        }
+        .btn-create {
             background-color: blue;
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
-
-        button:hover {
+        .btn-create:hover {
             background-color: darkblue;
         }
     </style>
 </head>
 <body>
 
-<h1>Chat Name - Secure chat</h1>
-<p>My first secure chat project!</p>
-
-<button>Create a new secure chat rooms</button>
+<div class="container">
+    <h1>Chat Name - Secure chat</h1>
+    <p>My first secure chat project!</p>
+    <a href="create_chat.html" class="btn btn-create">Create a new secure chat room</a>
+</div>
 
 </body>
 </html>
