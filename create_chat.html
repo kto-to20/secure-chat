@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Chat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        .btn-create {
+            background-color: blue;
+            color: white;
+        }
+        .btn-create:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Create a Chat Room</h1>
+    <form action="set_password.html" method="GET">
+        <div class="form-group">
+            <label for="chatName">Chat Name:</label>
+            <input type="text" id="chatName" name="chatName" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="chatType">Chat Type:</label>
+            <select id="chatType" name="chatType" class="form-control" required>
+                <option value="public">Public</option>
+                <option value="private">Private</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="chatPassword">Password (optional):</label>
+            <input type="password" id="chatPassword" name="chatPassword" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-create">Create Chat</button>
+    </form>
+</div>
+
+</body>
+</html>
