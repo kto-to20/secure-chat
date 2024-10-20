@@ -1,19 +1,26 @@
-const { WebSocketServer, WebSocket } = require('ws');
+const WebSocket = require('ws');
 
-const wss = new WebSocketServer({ port: 2953 });
+const wss = new WebSocket.Server({ port: 2953 });
 
-wss.on('connection', function connection(ws) {
-    console.log('new connection');
+wss.on('connection', (ws) => {
+    const clientId = Date.now();
+    console.log('New connection. Client ID:', clientId);
 
-    ws.on('message', function message(data) {
-        console.log('received msg from client: %s', data);
-
-        wss.clients.forEach(function each(client) {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(data);
-            }
-        });
+    ws.on('message', (message) => {
+        const msg = JSON.parse(message);
+        if (msg.type === 'setName') {
+            console.log(`Client ${clientId} set name: ${msg.name}`);
+        } else if (msg.type === 'message') {
+            console.log(`Message from client: ${msg.text}`);
+            wss.clients.forEach(client => {
+                if (client !== ws && client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify({ type: 'message', text: msg.text })); // Відправляємо всім клієнтам
+                }
+            });
+        }
     });
 
-    ws.on('error', console.error);
+    ws.on('close', () => {
+        console.log(`Client ${clientId} disconnected.`);
+    });
 });
