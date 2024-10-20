@@ -1,20 +1,41 @@
-const { WebSocket } = require('ws');
+const WebSocket = require('ws');
+const readline = require('readline');
 
-const wsClientFactory = (id) => {
-    const ws = new WebSocket('ws://localhost:2953');
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
 
-    ws.on('error', console.error);
+let ws = new WebSocket('ws://localhost:2953');
 
-    ws.on('open', function open() {
-        console.log(`connected ${id}`);
-        ws.send(`${id} HELLO`);
+ws.on('open', () => {
+    console.log('Connected to the server. Your client ID: ' + Date.now());
+    rl.question('Enter your name: ', (name) => {
+        ws.send(JSON.stringify({ type: 'setName', name }));
+        console.log(`You set your name to: ${name}`);
+        promptMessage();
     });
+});
 
-    ws.on('message', function message(data) {
-        console.log(`${id} received: %s`, data);
+ws.on('message', (message) => {
+    const msg = JSON.parse(message);
+    if (msg.type === 'message') {
+        console.log(`Message: ${msg.text}`); // Виводимо тільки текст повідомлення
+    }
+});
+
+ws.on('close', () => {
+    console.log('Connection closed. Trying to reconnect...');
+    setTimeout(connect, 1000);
+});
+
+function promptMessage() {
+    rl.question('Enter message: ', (text) => {
+        ws.send(JSON.stringify({ type: 'message', text }));
+        promptMessage(); // Запросити наступне повідомлення
     });
-};
+}
 
-const wsClient1 = wsClientFactory(1);
-const wsClient2 = wsClientFactory(2);
-const wsClient3 = wsClientFactory(3);
+function connect() {
+    ws = new WebSocket('ws://localhost:2953');
+}
