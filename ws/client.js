@@ -1,20 +1,27 @@
-const { WebSocket } = require('ws');
+const readline = require('readline');
+const { ChatClient } = require('./client/ChatClient');
 
-const wsClientFactory = (id) => {
-    const ws = new WebSocket('ws://localhost:2953');
+const args = process.argv.slice(2);
+const sessionId = args.includes('--sessionId') ? args[args.indexOf('--sessionId') + 1] : null;
+const name = args.includes('--name') ? args[args.indexOf('--name') + 1] : null;
 
-    ws.on('error', console.error);
+if (!name) {
+    console.error('Arguments --name are required.\nUsage: node client.js --name <username> [--sessionId <sessionId>]');
+    process.exit(1);
+}
 
-    ws.on('open', function open() {
-        console.log(`connected ${id}`);
-        ws.send(`${id} HELLO`);
-    });
+const client = new ChatClient({ url: 'ws://localhost:8080', username: name, sessionId });
+client.init();
 
-    ws.on('message', function message(data) {
-        console.log(`${id} received: %s`, data);
-    });
-};
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
 
-const wsClient1 = wsClientFactory(1);
-const wsClient2 = wsClientFactory(2);
-const wsClient3 = wsClientFactory(3);
+rl.on('line', (input) => {
+    if (input.trim().toLowerCase() === 'exit') {
+        rl.close();
+    } else {
+        client.send(input);
+    }
+});
