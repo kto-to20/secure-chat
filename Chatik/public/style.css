@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+  }
+  
+  h1, h2 {
+    color: #333;
+  }
+  
+  #name-prompt, #chat-container {
+    text-align: center;
+  }
+  
+  input[type="text"], input[type="text"]:focus {
+    padding: 10px;
+    width: 300px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  #messages {
+    list-style-type: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  #messages li {
+    background-color: #e0e0e0;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 5px 0;
+  }
+  
+  #messages li:nth-child(odd) {
+    background-color: #d3f8e2;
+  }
+  
+  form {
+    margin-top: 20px;
+  }
+  
+  input#input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  form button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #218838;
+  }
+  
