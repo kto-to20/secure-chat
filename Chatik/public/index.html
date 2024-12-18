@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket.io Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="name-prompt">
+    <h2>Enter your name:</h2>
+    <input type="text" id="username" placeholder="Your name..." />
+    <button id="enter-chat">Enter Chat</button>
+  </div>
+
+  <div id="chat-container" style="display: none;">
+    <h1>Welcome to the Chat, <span id="user-name"></span>!</h1>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" placeholder="Enter your message..." />
+      <button>Send</button>
+    </form>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
